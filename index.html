@@ -2,6 +2,126 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
+  <title>Popup Example</title>
+  <style>
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .popup {
+      background: #fff;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .popup img {
+      width: 100%;
+      display: block;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .popup-footer {
+      padding: 12px;
+      text-align: center;
+    }
+
+    .popup-footer button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: #4f5ef7;
+      color: #fff;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    /* 텍스트 버튼 */
+    .today-hide {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #666;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .today-hide:hover {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+<div class="popup-overlay" id="popup">
+  <div class="popup">
+    <button class="popup-close" onclick="closePopup()">×</button>
+
+    <img src="popup-image.jpg" alt="팝업 이미지" />
+
+    <div class="popup-footer">
+      <button onclick="alert('버튼 클릭!')">버튼</button>
+
+      <!-- 👇 텍스트 버튼 -->
+      <div class="today-hide" onclick="hideToday()">
+        오늘 하루 보지 않기
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const POPUP_KEY = "hidePopupDate";
+
+  function today() {
+    return new Date().toISOString().split("T")[0];
+  }
+
+  // 페이지 로드시 확인
+  window.onload = () => {
+    if (localStorage.getItem(POPUP_KEY) === today()) {
+      document.getElementById("popup").style.display = "none";
+    }
+  };
+
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+  }
+
+  function hideToday() {
+    localStorage.setItem(POPUP_KEY, today());
+    closePopup();
+  }
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Swipe Cards</title>
 
